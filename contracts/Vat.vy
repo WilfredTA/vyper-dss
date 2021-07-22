@@ -1,12 +1,9 @@
 # @version ^0.2.12
 
-# To do: check how decimals can be leveraged instead of utilizing fixed point math manually
 # -- Auth --
-
-# Description
 wards: public(HashMap[address, uint256])
 
-# Description
+
 can: public(HashMap[address, HashMap[address, uint256]])
 
 @internal
