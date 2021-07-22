@@ -1,0 +1,7 @@
+__pycache__
+.history
+.hypothesis/
+build/
+reports/
+contracts/Conv.vy
+tests/test_Conv.py
