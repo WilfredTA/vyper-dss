@@ -68,9 +68,7 @@ def __init__():
 
 
 
-# --- Administration --
-
-# To do: init as keyword?
+# --- Administration ---
 @external
 def init_ilk(ilk: bytes32):
     self._auth(msg.sender)
@@ -106,14 +104,14 @@ def cage():
     self.live = 0
 
 # --- Fungibility ---
-
 @external
 def slip(ilk: bytes32, usr: address, wad: int256):
     self._auth(msg.sender)
-    cwad:uint256 = convert(wad, uint256)
-    
-    self.gem[ilk][usr] += cwad # this may require explicit conversion
 
+    if wad < 0:
+        self.gem[ilk][usr] -= convert(wad * -1, uint256)
+    else:
+        self.gem[ilk][usr] += convert(wad, uint256)
 
 @external
 def flux(ilk: bytes32, src: address, dst: address, wad: uint256):
@@ -129,9 +127,6 @@ def move(src: address, dst: address, rad: uint256):
 
 
 # --- CDP Manipulation ---
-
-# To do with frob: edge cases of multiplying by -1 (used extensively here to handle sign of dink and dart)
-# because frob vat.sol relies heavily on this fact
 @external
 def frob(i: bytes32, u: address, v: address, w: address, dink: int256, dart: int256):
     assert self.live == 1, "Vat/not-live"
@@ -238,7 +233,7 @@ def fork(_ilk: bytes32, _src: address, _dst: address, dink: int256, dart: int256
     self.urns[_ilk][_dst] = v
     self.ilks[_ilk] = i
 
-# ---- CDP Confiscation ---
+# --- CDP Confiscation ---
 @external
 def grab(i: bytes32, u: address, v:address, w: address, dink: int256, dart: int256):
     self._auth(msg.sender)
