@@ -2,8 +2,6 @@
 
 # -- Auth --
 wards: public(HashMap[address, uint256])
-
-
 can: public(HashMap[address, HashMap[address, uint256]])
 
 @internal
