@@ -1,4 +1,4 @@
-# @version ^0.2.12
+# @version 0.2.14
 
 # -- Auth --
 wards: public(HashMap[address, uint256])
