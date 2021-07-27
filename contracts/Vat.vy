@@ -195,7 +195,7 @@ def slip(ilk: bytes32, usr: address, wad: int256):
     self._auth(msg.sender)
 
     if wad < 0:
-        self.gem[ilk][usr] -= convert(wad * -1, uint256)
+        self.gem[ilk][usr] -= convert(abs(wad), uint256)
     else:
         self.gem[ilk][usr] += convert(wad, uint256)
 
@@ -231,14 +231,14 @@ def frob(i: bytes32, u: address, v: address, w: address, dink: int256, dart: int
     
     
     if dink_sub_flag:
-        urn.ink -= convert(dink * -1, uint256) 
+        urn.ink -= convert(abs(dink) , uint256) 
 
     else:
         urn.ink += convert(dink, uint256)
     
     if dart_sub_flag:
-        urn.art -= convert(dart * -1, uint256)
-        ilk.Art -= convert(dart * -1, uint256)
+        urn.art -= convert(abs(dart), uint256)
+        ilk.Art -= convert(abs(dart), uint256)
     else:
         urn.art += convert(dart, uint256)
         ilk.Art += convert(dart, uint256)
@@ -270,12 +270,12 @@ def frob(i: bytes32, u: address, v: address, w: address, dink: int256, dart: int
 
 
     if dink_sub_flag:
-        self.gem[i][v] += convert(dink * -1, uint256)
+        self.gem[i][v] += convert(abs(dink), uint256)
     else:
         self.gem[i][v] += convert(dink, uint256)
 
     if dtab < 0:
-        self.dai[w] -= convert(dtab * -1, uint256)
+        self.dai[w] -= convert(abs(dtab), uint256)
     else:
         self.dai[w] += convert(dtab, uint256)
 
@@ -292,16 +292,16 @@ def fork(_ilk: bytes32, _src: address, _dst: address, dink: int256, dart: int256
     i: Ilk = self.ilks[_ilk]
 
     if dink < 0:
-        u.ink += convert(dink * -1, uint256)
-        v.ink -= convert(dink * -1, uint256)
+        u.ink += convert(abs(dink), uint256)
+        v.ink -= convert(abs(dink), uint256)
     else:
         u.ink -= convert(dink, uint256)
         v.ink += convert(dink, uint256)
 
 
     if dart < 0:
-        u.art += convert(dart * -1, uint256)
-        v.art -= convert(dart * -1, uint256)
+        u.art += convert(abs(dart), uint256)
+        v.art -= convert(abs(dart), uint256)
     else:
         u.art -= convert(dart, uint256)
         v.art += convert(dart, uint256)
@@ -331,15 +331,15 @@ def grab(i: bytes32, u: address, v:address, w: address, dink: int256, dart: int2
     ilk: Ilk = self.ilks[i]
 
     if dink < 0:
-        urn.ink -= convert(dink * -1, uint256)
-        self.gem[i][v] += convert(dink * -1, uint256)
+        urn.ink -= convert(abs(dink), uint256)
+        self.gem[i][v] += convert(abs(dink), uint256)
     else:
         urn.ink += convert(dink, uint256)
         self.gem[i][v] -= convert(dink, uint256)
 
     if dart < 0:
-        urn.art -= convert(dart * -1, uint256)
-        ilk.Art -= convert(dart * -1, uint256)
+        urn.art -= convert(abs(dart), uint256)
+        ilk.Art -= convert(abs(dart), uint256)
     else:
         urn.art += convert(dart, uint256)
         ilk.Art += convert(dart, uint256)
@@ -347,8 +347,8 @@ def grab(i: bytes32, u: address, v:address, w: address, dink: int256, dart: int2
     dtab: int256 = convert(ilk.rate, int256) * dart
 
     if dtab < 0:
-        self.sin[w] += convert(dtab * -1, uint256)
-        self.vice += convert(dtab * -1, uint256)
+        self.sin[w] += convert(abs(dtab), uint256)
+        self.vice += convert(abs(dtab), uint256)
     else:
         self.sin[w] -= convert(dtab, uint256)
         self.vice -= convert(dtab, uint256)
@@ -382,9 +382,9 @@ def fold(i: bytes32, u: address, rate: int256):
     ilk: Ilk = self.ilks[i]
     rad: int256 = convert(ilk.Art, int256) * rate
     if rate < 0:
-        ilk.rate -= convert(rate * -1, uint256)
-        self.dai[u] -= convert(rad * -1, uint256)
-        self.debt -= convert(rad * -1, uint256)
+        ilk.rate -= convert(abs(rate), uint256)
+        self.dai[u] -= convert(abs(rad), uint256)
+        self.debt -= convert(abs(rad), uint256)
     else:
         ilk.rate += convert(rate, uint256)
         self.dai[u] += convert(rad, uint256)
