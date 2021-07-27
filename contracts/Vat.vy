@@ -1,5 +1,93 @@
 # @version 0.2.14
 
+
+
+
+
+event Rely:
+    usr: indexed(address)
+
+event Deny:
+    usr: indexed(address)
+
+event File:
+    what: indexed(bytes32)
+    data: uint256
+
+event FileIlk:
+    ilk: indexed(bytes32)
+    what: indexed(bytes32)
+    data: uint256
+
+event Hope:
+    usr: indexed(address)
+
+event Nope:
+    usr: indexed(address)
+
+event Frob:
+    ilk: indexed(bytes32)
+    urn: indexed(address)
+    src: address
+    dst: address
+    dink: int256
+    dart: int256
+
+event InitIlk:
+    usr: indexed(address)
+    ilk: indexed(bytes32)
+
+event Cage:
+    usr: indexed(address)
+
+event Slip:
+    ilk: indexed(bytes32)
+    usr: indexed(address)
+    who: address
+    wad: int256
+
+event Flux:
+    ilk: indexed(bytes32)
+    src: indexed(address)
+    dst: indexed(address)
+    wad: int256
+    who: address
+
+event Move:
+    src: indexed(address)
+    dst: indexed(address)
+    rad: uint256
+    who: address
+
+event Fork:
+    ilk: indexed(bytes32)
+    src: indexed(address)
+    dst: indexed(address)
+    dink: int256
+    dart: int256
+
+event Grab:
+    ilk: indexed(bytes32)
+    u: address
+    v: address
+    w: address
+    dink: int256
+    dart: int256
+    who: address
+
+event Heal:
+    usr: indexed(address)
+    rad: uint256
+
+event Suck:
+    u: indexed(address)
+    v: indexed(address)
+    rad: uint256
+
+event Fold:
+    ilk: indexed(bytes32)
+    u: indexed(address)
+    rate: uint256
 # -- Auth --
 wards: public(HashMap[address, uint256])
 can: public(HashMap[address, HashMap[address, uint256]])
@@ -125,6 +213,10 @@ def move(src: address, dst: address, rad: uint256):
 
 
 # --- CDP Manipulation ---
+
+# u is address of user whose vault (urn) is being changed
+# v is address of user whose gem is being used for the urn change
+# w is address of user who will receive dai
 @external
 def frob(i: bytes32, u: address, v: address, w: address, dink: int256, dart: int256):
     assert self.live == 1, "Vat/not-live"
